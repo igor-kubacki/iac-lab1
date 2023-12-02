@@ -12,12 +12,14 @@ on:
 permissions:
   contents: read
 
-
-
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
 
     steps:
     - uses: actions/checkout@v3
@@ -29,33 +31,22 @@ jobs:
       # uses: snok/install-poetry@93ada01c735cc8a383ce0ce2ae205a21c415379b
       uses: snok/install-poetry@v1.3.4
     - name: Install poetry dependencies
-      run: |
-        cd example-app
-        poetry install --no-root
+      run: poetry install --no-root
 
   lint:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.repository }}-concurrency
-      cancel-in-progress: false
     steps:
     - name: Run lint
       run: poetry run task lint
   
   formatter:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.repository }}-concurrency
-      cancel-in-progress: false
     steps:
     - name: Run formatter
       run: poetry run task formatter
 
   security:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.repository }}-concurrency
-      cancel-in-progress: false
     steps:
     - name: Run security
       run: poetry run task security
