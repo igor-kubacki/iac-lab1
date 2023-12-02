@@ -80,8 +80,12 @@ jobs:
     - name: Install Poetry Action
       # uses: snok/install-poetry@93ada01c735cc8a383ce0ce2ae205a21c415379b
       uses: snok/install-poetry@v1.3.4
-    - name: Install poetry dependencies
-      run: poetry install --no-root
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-venv
     - name: Run formatter
       run: poetry run task formatter
 
@@ -101,8 +105,12 @@ jobs:
     - name: Install Poetry Action
       # uses: snok/install-poetry@93ada01c735cc8a383ce0ce2ae205a21c415379b
       uses: snok/install-poetry@v1.3.4
-    - name: Install poetry dependencies
-      run: poetry install --no-root
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-venv
     - name: Run security
       run: poetry run task security
 
@@ -122,8 +130,12 @@ jobs:
     - name: Install Poetry Action
       # uses: snok/install-poetry@93ada01c735cc8a383ce0ce2ae205a21c415379b
       uses: snok/install-poetry@v1.3.4
-    - name: Install poetry dependencies
-      run: poetry install --no-root
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-venv
     - name: Run unit tests
       run: poetry run task test
         
