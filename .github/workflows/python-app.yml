@@ -29,7 +29,9 @@ jobs:
       # uses: snok/install-poetry@93ada01c735cc8a383ce0ce2ae205a21c415379b
       uses: snok/install-poetry@v1.3.4
     - name: Install poetry dependencies
-      run: poetry install --no-root
+      run: |
+        cd example-app
+        poetry install --no-root
 
   lint:
     runs-on: ubuntu-latest
