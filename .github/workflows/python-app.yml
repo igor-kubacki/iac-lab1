@@ -32,6 +32,12 @@ jobs:
       uses: snok/install-poetry@v1.3.4
     - name: Install poetry dependencies
       run: poetry install --no-root
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-venv
 
   lint:
     needs: build
@@ -56,6 +62,9 @@ jobs:
   formatter:
     needs: build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
     steps:
     - name: Run formatter
       working-directory: ./example-app
